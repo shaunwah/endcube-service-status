@@ -44,7 +44,6 @@ public class VelorenStatus {
 
             final String VELOREN_BUILD_INFO = "veloren_build_info";
             if (line.startsWith(VELOREN_BUILD_INFO)) {
-                System.out.println(line);
                 this.setVelorenBuildInfo(
                         line.replaceAll(".+=\"(.{8}).+", "$1")
                 );
