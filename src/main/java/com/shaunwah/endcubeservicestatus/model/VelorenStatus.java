@@ -37,8 +37,16 @@ public class VelorenStatus {
             if (line.startsWith(PARTICIPANTS_DISCONNECTED)) {
                 this.setParticipantsDisconnected(
                         Integer.parseInt(
-                                line.replaceAll(PARTICIPANTS_DISCONNECTED, "")
+                                line.replace(PARTICIPANTS_DISCONNECTED, "")
                         )
+                );
+            }
+
+            final String VELOREN_BUILD_INFO = "veloren_build_info";
+            if (line.startsWith(VELOREN_BUILD_INFO)) {
+                System.out.println(line);
+                this.setVelorenBuildInfo(
+                        line.replaceAll(".+=\"(.{8}).+", "$1")
                 );
             }
         }
