@@ -11,8 +11,8 @@ import java.net.URL;
 public class VelorenStatus {
     private final String METRICS_ENDPOINT = "http://veloren.endcube.net:14005/metrics";
     private String velorenBuildInfo;
-    private Integer clientsConnected = 0;
-    private Integer clientsDisconnected = 0;
+    private Integer participantsConnected = 0;
+    private Integer participantsDisconnected = 0;
 
     public VelorenStatus() throws Exception {
         URL url = URI.create(METRICS_ENDPOINT).toURL();
@@ -24,16 +24,22 @@ public class VelorenStatus {
 
         String line;
         while ((line = bufferedReader.readLine()) != null) {
-            if (line.startsWith("clients_connected")) {
-                this.clientsConnected = Integer.parseInt(line.replace("clients_connected ", ""));
+            final String PARTICIPANTS_CONNECTED = "participants_connected_total ";
+            if (line.startsWith(PARTICIPANTS_CONNECTED)) {
+                this.setParticipantsConnected(
+                        Integer.parseInt(
+                                line.replace(PARTICIPANTS_CONNECTED, "")
+                        )
+                );
             }
 
-            if (line.startsWith("clients_disconnected")) {
-                this.clientsDisconnected += Integer.parseInt(line.replaceAll("clients_disconnected\\{reason=.+} ", ""));
-            }
-
-            if (line.startsWith("veloren_build_info")) {
-                this.velorenBuildInfo = line.replace("veloren_build_info ", "");
+            final String PARTICIPANTS_DISCONNECTED = "participants_disconnected_total ";
+            if (line.startsWith(PARTICIPANTS_DISCONNECTED)) {
+                this.setParticipantsDisconnected(
+                        Integer.parseInt(
+                                line.replaceAll(PARTICIPANTS_DISCONNECTED, "")
+                        )
+                );
             }
         }
     }
