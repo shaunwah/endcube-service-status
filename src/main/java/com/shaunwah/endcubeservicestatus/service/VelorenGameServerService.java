@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.Duration;
+
 @Service
 public class VelorenGameServerService {
     @Value("${endcube.service.veloren.game.server.url}")
@@ -43,6 +45,7 @@ public class VelorenGameServerService {
             return webClient.get()
                     .retrieve()
                     .bodyToMono(String.class)
+                    .timeout(Duration.ofMillis(3000))
                     .block();
         } catch (Exception e) {
             return null;

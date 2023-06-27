@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.Duration;
+
 @Service
 public class VelorenAuthServerService {
     @Value("${endcube.service.veloren.auth.server.url}")
@@ -22,6 +24,7 @@ public class VelorenAuthServerService {
             return webClient.get()
                     .retrieve()
                     .bodyToMono(String.class)
+                    .timeout(Duration.ofMillis(3000))
                     .block();
         } catch (Exception e) {
             return null;
