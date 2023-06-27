@@ -12,6 +12,7 @@ public class MainController {
     @GetMapping
     public String getMain(Model model) throws Exception {
         VelorenStatus velorenStatus = new VelorenStatus();
+        System.out.println(velorenStatus.getOnline());
         model.addAttribute("velorenStatus", velorenStatus);
 
         return "main";
