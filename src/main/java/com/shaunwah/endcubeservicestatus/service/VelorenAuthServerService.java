@@ -47,7 +47,7 @@ public class VelorenAuthServerService {
     }
 
     public void storeObjectInRedis(VelorenAuthServer server) {
-        template.opsForValue().set(this.getClass().getSimpleName(), server, Duration.ofMinutes(5));
+        template.opsForValue().set(this.getClass().getSimpleName(), server);
     }
 
     public VelorenAuthServer getObjectFromRedis() {

@@ -68,7 +68,7 @@ public class VelorenGameServerService {
     }
 
     public void storeObjectInRedis(VelorenGameServer server) {
-        template.opsForValue().set(this.getClass().getSimpleName(), server, Duration.ofMinutes(5));
+        template.opsForValue().set(this.getClass().getSimpleName(), server);
     }
 
     public VelorenGameServer getObjectFromRedis() {
