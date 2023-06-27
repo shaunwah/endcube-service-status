@@ -1,9 +1,9 @@
 package com.shaunwah.endcubeservicestatus.service;
 
 import com.shaunwah.endcubeservicestatus.model.VelorenGameServer;
+import com.shaunwah.endcubeservicestatus.repository.VelorenGameServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,7 +12,7 @@ import java.time.Duration;
 @Service
 public class VelorenGameServerService {
     @Autowired
-    RedisTemplate<String, Object> template;
+    VelorenGameServerRepository repository;
 
     @Value("${endcube.service.veloren.game.server.url}")
     private String endpointUrl;
@@ -68,13 +68,10 @@ public class VelorenGameServerService {
     }
 
     public void storeObjectInRedis(VelorenGameServer server) {
-        template.opsForValue().set(this.getClass().getSimpleName(), server);
+        repository.storeObjectInRedis(server);
     }
 
     public VelorenGameServer getObjectFromRedis() {
-        if (template.opsForValue().getOperations().hasKey(this.getClass().getSimpleName())) {
-            return (VelorenGameServer) template.opsForValue().get(this.getClass().getSimpleName());
-        }
-        return null;
+        return repository.getObjectFromRedis();
     }
 }

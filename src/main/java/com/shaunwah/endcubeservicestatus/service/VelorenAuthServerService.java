@@ -1,9 +1,9 @@
 package com.shaunwah.endcubeservicestatus.service;
 
 import com.shaunwah.endcubeservicestatus.model.VelorenAuthServer;
+import com.shaunwah.endcubeservicestatus.repository.VelorenAuthServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,7 +12,7 @@ import java.time.Duration;
 @Service
 public class VelorenAuthServerService {
     @Autowired
-    RedisTemplate<String, Object> template;
+    VelorenAuthServerRepository repository;
 
     @Value("${endcube.service.veloren.auth.server.url}")
     private String endpointUrl;
@@ -47,13 +47,10 @@ public class VelorenAuthServerService {
     }
 
     public void storeObjectInRedis(VelorenAuthServer server) {
-        template.opsForValue().set(this.getClass().getSimpleName(), server);
+        repository.storeObjectInRedis(server);
     }
 
     public VelorenAuthServer getObjectFromRedis() {
-        if (template.opsForValue().getOperations().hasKey(this.getClass().getSimpleName())) {
-            return (VelorenAuthServer) template.opsForValue().get(this.getClass().getSimpleName());
-        }
-        return null;
+        return repository.getObjectFromRedis();
     }
 }
