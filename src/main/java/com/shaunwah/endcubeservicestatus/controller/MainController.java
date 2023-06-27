@@ -18,8 +18,8 @@ public class MainController {
 
     @GetMapping
     public String getMain(Model model) {
-        model.addAttribute("velorenGameServer", velorenGameServerService.ping());
-        model.addAttribute("velorenAuthServer", velorenAuthServerService.ping());
+        model.addAttribute("velorenGameServer", velorenGameServerService.pingAndHandleData());
+        model.addAttribute("velorenAuthServer", velorenAuthServerService.pingAndHandleData());
         return "main";
     }
 }

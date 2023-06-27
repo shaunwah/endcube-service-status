@@ -18,10 +18,10 @@
                         <h5>Veloren Game Server</h5>
                         <p>
                             Game server (veloren.endcube.net) managed by Endcube.
-                        </p>
-                        <small>
-                            <span class="font-monospace" data-th-text="*{buildInfo}"></span>
                             [[*{participantsConnected - participantsDisconnected}]] in-game player(s)
+                        </p>
+                        <small class="text-muted">
+                            Updated at [[*{timeStamp}]]
                         </small>
                     </div>
                     <span data-th-if="*{isOnline == true}" class="badge bg-success rounded-pill">Online</span>
@@ -33,7 +33,9 @@
                         <p>
                             Auth server maintained by the official Veloren team.
                         </p>
-                        <small><span class="font-monospace">Weekly</span></small>
+                        <small class="text-muted">
+                            Updated at [[*{timeStamp}]]
+                        </small>
                     </div>
                     <span data-th-if="*{isOnline == true}" class="badge bg-success rounded-pill">Online</span>
                     <span data-th-if="*{isOnline == false}" class="badge bg-danger rounded-pill">Offline</span>

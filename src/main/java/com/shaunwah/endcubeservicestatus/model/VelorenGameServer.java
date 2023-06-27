@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VelorenGameServer {
+public class VelorenGameServer implements Serializable {
     private Boolean isOnline = false;
     private String buildInfo = "unavailable";
     private Integer participantsConnected = 0;
     private Integer participantsDisconnected = 0;
+    private Date timeStamp = new Date();
 }
