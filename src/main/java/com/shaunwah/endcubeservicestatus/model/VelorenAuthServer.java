@@ -11,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VelorenAuthServer implements Serializable {
+    private final String name = "Veloren Auth Server";
     private Boolean isOnline = false;
     private Date timeStamp = new Date();
 }

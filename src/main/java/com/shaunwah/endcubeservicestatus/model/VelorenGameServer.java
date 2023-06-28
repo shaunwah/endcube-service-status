@@ -11,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VelorenGameServer implements Serializable {
+    private final String name = "Veloren Game Server";
     private Boolean isOnline = false;
     private String buildInfo = "unavailable";
     private Integer participantsConnected = 0;
