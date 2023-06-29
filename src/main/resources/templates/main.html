@@ -34,7 +34,7 @@
                 <span data-th-each="unavailableService, i: ${unavailableServices}">
                     [[${!i.last} ? ${unavailableService + ','} : ${unavailableService}]]
                 </span>
-                    [[${unavailableServices.size() > 1} ? 'are' : 'is']] not operational.
+                    [[${unavailableServices.size() > 1} ? 'are' : 'is']] experiencing issues.
                 </div>
             </div>
             <ul class="list-group shadow">
