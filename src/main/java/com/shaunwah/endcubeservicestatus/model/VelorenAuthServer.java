@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
@@ -13,5 +13,5 @@ import java.util.Date;
 public class VelorenAuthServer implements Serializable {
     private final String name = "Veloren Auth Server";
     private Boolean isOnline = false;
-    private Date timeStamp = new Date();
+    private Long timeStamp = Instant.now().getEpochSecond();
 }

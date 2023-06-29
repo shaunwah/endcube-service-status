@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class VelorenGameServerService {
@@ -25,21 +26,25 @@ public class VelorenGameServerService {
             return server;
         }
 
+        AtomicReference<Integer> participantsConnected = new AtomicReference<>(0);
+        AtomicReference<Integer> participantsDisconnected = new AtomicReference<>(0);
+
         this.getDataFromEndpoint()
                 .lines()
                 .forEach(v -> {
                     if (v.startsWith("participants_connected_total")) {
-                        server.setParticipantsConnected(Integer.valueOf(v.replace("participants_connected_total ", "")));
+                        participantsConnected.set(Integer.valueOf(v.replace("participants_connected_total ", "")));
                     }
 
                     if (v.startsWith("participants_disconnected_total")) {
-                        server.setParticipantsDisconnected(Integer.valueOf(v.replace("participants_disconnected_total ", "")));
+                        participantsDisconnected.set(Integer.valueOf(v.replace("participants_disconnected_total ", "")));
                     }
 
                     if (v.startsWith("veloren_build_info")) {
                         server.setBuildInfo(v.replaceAll(".+=\"(.{8}).+", "$1"));
                     }
                 });
+        server.setUsersOnline(participantsConnected.get() - participantsDisconnected.get());
         server.setIsOnline(true);
         return server;
     }
