@@ -22,13 +22,13 @@
     </div>
     <div>
         <div class="mb-3 mb-md-5">
-            <div data-th-if="${unavailableServices.isEmpty()}" class="alert alert-success d-flex align-items-center" role="alert">
+            <div data-th-if="${unavailableServices.isEmpty()}" class="alert alert-success d-flex align-items-center border-0" role="alert">
                 <i class="bi flex-shrink-0 me-2 bi-check-circle-fill text-success"></i>
                 <div>
                     All services are operational.
                 </div>
             </div>
-            <div data-th-unless="${unavailableServices.isEmpty()}" class="alert alert-danger d-flex align-items-center" role="alert">
+            <div data-th-unless="${unavailableServices.isEmpty()}" class="alert alert-danger d-flex align-items-center border-0" role="alert">
                 <i class="bi flex-shrink-0 me-2 bi-x-circle-fill text-danger"></i>
                 <div>
                 <span data-th-each="unavailableService, i: ${unavailableServices}">
@@ -37,8 +37,8 @@
                     [[${unavailableServices.size() > 1} ? 'are' : 'is']] experiencing issues.
                 </div>
             </div>
-            <ul class="list-group shadow">
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-th-object="${velorenGameServer}">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-bottom border-secondary-subtle bg-dark-subtle" data-th-object="${velorenGameServer}">
                     <div>
                         <h5 data-th-text="*{name}"></h5>
                         <small class="text-muted">
@@ -51,7 +51,7 @@
                         <i data-th-unless="*{isOnline}" class="bi bi-x-circle-fill text-danger"></i>
                     </div>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-th-object="${velorenAuthServer}">
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 bg-dark-subtle" data-th-object="${velorenAuthServer}">
                     <div>
                         <h5 data-th-text="*{name}"></h5>
                         <small class="text-muted">
