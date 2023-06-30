@@ -9,14 +9,16 @@ import org.springframework.stereotype.Repository;
 public class VelorenGameServerRepository {
     @Autowired
     RedisTemplate<String, Object> template;
+    String className = this.getClass().getSimpleName();
 
     public void storeObjectInRedis(VelorenGameServer server) {
-        template.opsForValue().set(this.getClass().getSimpleName(), server);
+        template.opsForValue().set(className, server);
     }
 
     public VelorenGameServer getObjectFromRedis() {
-        if (template.opsForValue().getOperations().hasKey(this.getClass().getSimpleName())) {
-            return (VelorenGameServer) template.opsForValue().get(this.getClass().getSimpleName());
+        Boolean hasKey = template.opsForValue().getOperations().hasKey(className);
+        if (hasKey != null && hasKey) {
+            return (VelorenGameServer) template.opsForValue().get(className);
         }
         return null;
     }
