@@ -21,24 +21,24 @@ public class MainRestController {
     VelorenAuthServerService velorenAuthServerService;
 
     @GetMapping("/veloren/game-server")
-    public ResponseEntity<?> getVelorenGameServer() {
+    public ResponseEntity<VelorenGameServer> getVelorenGameServer() {
         VelorenGameServer velorenGameServer = velorenGameServerService.pingAndHandleData();
         if (velorenGameServer.getIsOnline()) {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(velorenGameServer);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("No response from %s.".formatted(velorenGameServer.getName()));
+                .body(new VelorenGameServer());
     }
 
     @GetMapping("/veloren/auth-server")
-    public ResponseEntity<?> getVelorenAuthServer() {
+    public ResponseEntity<VelorenAuthServer> getVelorenAuthServer() {
         VelorenAuthServer velorenAuthServer = velorenAuthServerService.pingAndHandleData();
         if (velorenAuthServer.getIsOnline()) {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(velorenAuthServer);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("No response from %s.".formatted(velorenAuthServer.getName()));
+                .body(new VelorenAuthServer());
     }
 }
