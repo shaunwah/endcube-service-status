@@ -49,6 +49,16 @@ public class VelorenGameServerService {
         return server;
     }
 
+    public VelorenGameServer pingAndStoreData() {
+        VelorenGameServer result = this.getObjectFromRedis();
+        if (result == null) {
+            VelorenGameServer server = this.ping();
+            this.storeObjectInRedis(server);
+            return server;
+        }
+        return result;
+    }
+
     private String getDataFromEndpoint() {
         try {
             WebClient webClient = WebClient.create(endpointUrl);
@@ -60,16 +70,6 @@ public class VelorenGameServerService {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    public VelorenGameServer pingAndHandleData() {
-        VelorenGameServer result = this.getObjectFromRedis();
-        if (result == null) {
-            VelorenGameServer server = this.ping();
-            this.storeObjectInRedis(server);
-            return server;
-        }
-        return result;
     }
 
     public void storeObjectInRedis(VelorenGameServer server) {

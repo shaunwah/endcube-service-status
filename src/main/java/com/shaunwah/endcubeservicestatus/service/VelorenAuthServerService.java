@@ -23,6 +23,16 @@ public class VelorenAuthServerService {
         return server;
     }
 
+    public VelorenAuthServer pingAndStoreData() {
+        VelorenAuthServer result = this.getObjectFromRedis();
+        if (result == null) {
+            VelorenAuthServer server = this.ping();
+            this.storeObjectInRedis(server);
+            return server;
+        }
+        return result;
+    }
+
     private String getDataFromEndpoint() {
         try {
             WebClient webClient = WebClient.create(endpointUrl);
@@ -34,16 +44,6 @@ public class VelorenAuthServerService {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    public VelorenAuthServer pingAndHandleData() {
-        VelorenAuthServer result = this.getObjectFromRedis();
-        if (result == null) {
-            VelorenAuthServer server = this.ping();
-            this.storeObjectInRedis(server);
-            return server;
-        }
-        return result;
     }
 
     public void storeObjectInRedis(VelorenAuthServer server) {
